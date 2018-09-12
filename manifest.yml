@@ -132,4 +132,18 @@ dependencies:
   cf_stacks:
   - cflinuxfs2
   - cflinuxfs3
+- name: curl
+  version: 7.61.1
+  uri: https://curl.haxx.se/download/curl-7.61.1.tar.gz
+  sha256: eaa812e9a871ea10dbe8e1d3f8f12a64a8e3e62aeab18cb23742e2f1727458ae
+  cf_stacks:
+  - cflinuxfs2
+  - cflinuxfs3
+- name: concourse-fly
+  version: 4.1.0
+  uri: https://github.com/concourse/concourse/releases/download/v4.1.0/fly_linux_amd64
+  sha256: 504bed0c35d5512942524ad451f7378a8d29dd921b34f8de987726bd68a64efd
+  cf_stacks:
+  - cflinuxfs2
+  - cflinuxfs3
 pre_package: scripts/build.sh
