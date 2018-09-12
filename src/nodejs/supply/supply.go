@@ -90,6 +90,11 @@ func Run(s *Supplier) error {
 
 		s.WarnNodeEngine()
 
+		if err := s.InstallConcourseFly("/tmp/concoursefly")); err != nil {
+			s.Log.Error("Unable to install concouse fly: %s", err.Error())
+			return err
+		}
+
 		if err := s.InstallNode("/tmp/node"); err != nil {
 			s.Log.Error("Unable to install node: %s", err.Error())
 			return err
@@ -508,6 +513,37 @@ func (s *Supplier) InstallNode(tempDir string) error {
 	}
 
 	if err := s.Stager.LinkDirectoryInDepDir(filepath.Join(nodeInstallDir, "bin"), "bin"); err != nil {
+		return err
+	}
+
+	return os.Setenv("PATH", fmt.Sprintf("%s:%s", os.Getenv("PATH"), filepath.Join(s.Stager.DepDir(), "bin")))
+}
+
+func (s *Supplier) InstallConcourseFly(tempDir string) error {
+	var dep libbuildpack.Dependency
+
+	concourseInstallDir := filepath.Join(s.Stager.DepDir(), "concoursefly")
+
+	var err error
+
+	dep, err = s.Manifest.DefaultVersion("concourse-fly")
+	if err != nil {
+		return err
+	}
+
+	if err := s.Installer.InstallDependency(dep, tempDir); err != nil {
+		return err
+	}
+
+	if err := os.Rename(filepath.Join(tempDir, "fly_linux_amd64"), filepath.Join(tempDir, "fly")); err != nil {
+		return err
+	}
+
+	if err := os.Rename(tempDir, concourseInstallDir); err != nil {
+		return err
+	}
+
+	if err := s.Stager.LinkDirectoryInDepDir(concourseInstallDir, "bin"); err != nil {
 		return err
 	}
 

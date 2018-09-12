@@ -3,6 +3,8 @@ language: nodejs
 default_versions:
 - name: node
   version: 6.x
+- name: concourse-fly
+  version: 4.x
 include_files:
 - CHANGELOG
 - CONTRIBUTING.md
@@ -129,13 +131,6 @@ dependencies:
   version: 1.9.4
   uri: https://buildpacks.cloudfoundry.org/dependencies/yarn/yarn-v1.9.4-7667eb71.tar.gz
   sha256: 7667eb715077b4bad8e2a832e7084e0e6f1ba54d7280dc573c8f7031a7fb093e
-  cf_stacks:
-  - cflinuxfs2
-  - cflinuxfs3
-- name: curl
-  version: 7.61.1
-  uri: https://curl.haxx.se/download/curl-7.61.1.tar.gz
-  sha256: eaa812e9a871ea10dbe8e1d3f8f12a64a8e3e62aeab18cb23742e2f1727458ae
   cf_stacks:
   - cflinuxfs2
   - cflinuxfs3
