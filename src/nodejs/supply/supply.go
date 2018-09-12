@@ -91,7 +91,7 @@ func Run(s *Supplier) error {
 		s.WarnNodeEngine()
 
 		if err := s.InstallConcourseFly("/tmp/concoursefly")); err != nil {
-			s.Log.Error("Unable to install concouse fly: %s", err.Error())
+			s.Log.Error("Unable to install concourse fly: %s", err.Error())
 			return err
 		}
 
